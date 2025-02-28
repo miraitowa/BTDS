@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- Graph Walk Mobility Model -->
+<!-- 1000x1000 m, 50 nodes, speed: 2-5 km/h, stay: 100-600 s -->
+<universe>
+  <dimx>1000.0</dimx>
+  <dimy>1000.0</dimy>
+  <!-- <extension class="de.uni_stuttgart.informatik.canu.mobisim.extensions.DebugOutput"/> -->
+	<!--<extension class="de.uni_stuttgart.informatik.canu.mobisim.extensions.NSOutput" output="test_trace"/>-->
+  <extension class="de.uni_stuttgart.informatik.canu.mobisim.simulations.TimeSimulation" param="200.0"/>
+	<extension class="de.uni_stuttgart.informatik.canu.spatialmodel.core.SpatialModel" min_x="0" max_x="1000" min_y="0" max_y="1000"/>
+  <extension class="eurecom.spacegraph.SpaceGraph"/>
+  <extension class="de.uni_stuttgart.informatik.canu.mobisimadd.extensions.GUI">
+	  <width>640</width>
+		<height>480</height>
+		<step>1</step>
+	</extension> 
+  <nodegroup n="50">
+    <position model="SpatialModel" random="true">
+      <z>0.0</z>
+    </position>
+    <extension class="de.uni_stuttgart.informatik.canu.mobisim.mobilitymodels.GraphWalk" model="SpatialModel">
+      <minspeed>0.56</minspeed> <maxspeed>1.39</maxspeed> -->
+      <minstay>100.0</minstay> <maxstay>600.0</maxstay>
+    </extension>
+  </nodegroup>
+</universe>

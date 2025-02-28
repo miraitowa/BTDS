@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!-- Graph Walk Mobility Model -->
+<!-- 1000x1000 m, 50 nodes, speed: 2-5 km/h, stay: 120-600 s -->
+<universe>
+  <dimx>1000.0</dimx>
+  <dimy>1000.0</dimy>
+  <!--<extension class="de.uni_stuttgart.informatik.canu.mobisim.extensions.DebugOutput"/>-->
+  <extension class="de.uni_stuttgart.informatik.canu.mobisim.simulations.TimeSimulation" param="900.0"/>
+  <extension class="de.uni_stuttgart.informatik.canu.spatialmodel.core.SpatialModel" min_x="0" max_x="1000" min_y="0" max_y="1000">
+	  <max_traffic_lights>0</max_traffic_lights>
+		<reflect_directions>true</reflect_directions>
+		<number_lane full="true" max="2">2</number_lane>
+	</extension>	
+	<extension class="eurecom.spatialmodel.extensions.TrafficLight"  step="10000"/>
+  <extension class="eurecom.usergraph.UserGraph" name="userGraph">
+    <vertex> <id>0</id> <x>800</x> <y>200</y> </vertex>
+    <vertex> <id>1</id> <x>500</x> <y>600</y> </vertex>
+    <vertex> <id>2</id> <x>700</x> <y>500</y> </vertex>
+    <vertex> <id>3</id> <x>200</x> <y>300</y> </vertex>
+    <vertex> <id>4</id> <x>800</x> <y>400</y> </vertex>
+    <vertex> <id>5</id> <x>300</x> <y>100</y> </vertex>
+    <edge> <v1>0</v1> <v2>1</v2> <speed>2</speed> </edge>
+    <edge> <v1>0</v1> <v2>2</v2> <speed>5</speed> </edge>
+    <edge> <v1>1</v1> <v2>3</v2> <speed>10</speed> </edge>
+    <edge> <v1>1</v1> <v2>4</v2> <speed>7</speed> </edge>
+    <edge> <v1>2</v1> <v2>4</v2> <speed>3</speed> </edge>
+    <edge> <v1>3</v1> <v2>5</v2> <speed>1</speed> </edge>
+    <edge> <v1>4</v1> <v2>5</v2> <speed>9</speed> </edge>
+  </extension>
+ <nodegroup n="50">
+    <position model="SpatialModel" random="true">
+      <z>0.0</z>
+    </position>
+    <extension class="de.uni_stuttgart.informatik.canu.mobisim.mobilitymodels.GraphWalk" model="SpatialModel">
+      <minspeed>0.56</minspeed> <maxspeed>1.39</maxspeed> -->
+      <minstay>100.0</minstay> <maxstay>600.0</maxstay>
+    </extension>
+  </nodegroup>
+	<extension class="de.uni_stuttgart.informatik.canu.mobisimadd.extensions.GUI">
+	  <width>640</width>
+		<height>480</height>
+		<step>1</step>
+	</extension> 
+</universe>

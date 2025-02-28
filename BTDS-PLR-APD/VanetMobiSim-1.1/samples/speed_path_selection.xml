@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<!-- Cars in a City Center -->
+<universe>
+  <dimx>2000.0</dimx>
+  <dimy>2000.0</dimy>
+	 <seed>1</seed>
+	<!-- <extension class="de.uni_stuttgart.informatik.canu.mobisim.extensions.NSOutput" output="test_trace"/>-->
+  <extension class="de.uni_stuttgart.informatik.canu.mobisim.simulations.TimeSimulation" param="36000.0"/>
+  <extension class="de.uni_stuttgart.informatik.canu.spatialmodel.core.SpatialModel" min_x="0" min_y="0" max_x="3000" max_y="3000">
+    <max_traffic_lights>50</max_traffic_lights>
+    <number_lane full="false" max="0">2</number_lane>
+    <reflect_directions>true</reflect_directions>
+  </extension>
+  <extension name="TrafficLight" class="eurecom.spatialmodel.extensions.TrafficLight" step="60000"/>
+  <extension class="eurecom.usergraph.UserGraph">
+    <vertex><id>0</id><x>0</x><y>800</y></vertex>
+    <vertex><id>1</id><x>600</x><y>800</y></vertex>
+    <vertex><id>2</id><x>600</x><y>2000</y></vertex>
+    <vertex><id>3</id><x>600</x><y>0</y></vertex>
+    <vertex><id>4</id><x>1300</x><y>800</y></vertex>
+    <vertex><id>5</id><x>1300</x><y>2000</y></vertex>
+    <vertex><id>6</id><x>2000</x><y>800</y></vertex>
+    <vertex><id>7</id><x>0</x><y>200</y></vertex>
+    <vertex><id>8</id><x>0</x><y>50</y></vertex>
+    <vertex><id>9</id><x>300</x><y>200</y></vertex>
+    <vertex><id>10</id><x>300</x><y>800</y></vertex>
+    <vertex><id>11</id><x>600</x><y>250</y></vertex>
+    <vertex><id>12</id><x>0</x><y>1400</y></vertex>
+    <vertex><id>13</id><x>200</x><y>2000</y></vertex>
+    <vertex><id>14</id><x>300</x><y>1400</y></vertex>
+    <vertex><id>15</id><x>600</x><y>1400</y></vertex>
+    <vertex><id>16</id><x>1000</x><y>1400</y></vertex>
+    <vertex><id>17</id><x>1000</x><y>2000</y></vertex>
+    <vertex><id>18</id><x>1300</x><y>1400</y></vertex>
+    <vertex><id>19</id><x>1000</x><y>800</y></vertex>
+    <vertex><id>20</id><x>1600</x><y>800</y></vertex>
+    <vertex><id>21</id><x>1800</x><y>800</y></vertex>
+    <vertex><id>22</id><x>1600</x><y>1400</y></vertex>
+    <vertex><id>23</id><x>1650</x><y>2000</y></vertex>
+    <vertex><id>24</id><x>2000</x><y>1500</y></vertex>
+    <vertex><id>25</id><x>2000</x><y>350</y></vertex>
+    <vertex><id>26</id><x>1500</x><y>400</y></vertex>
+    <edge><v1>0</v1><v2>10</v2><speed>35</speed></edge>
+    <edge><v1>10</v1><v2>1</v2><speed>35</speed></edge>
+    <edge><v1>2</v1><v2>15</v2><speed>35</speed></edge>
+    <edge><v1>1</v1><v2>15</v2><speed>35</speed></edge>
+    <edge><v1>1</v1><v2>11</v2><speed>35</speed></edge>
+    <edge><v1>3</v1><v2>11</v2><speed>35</speed></edge>
+    <edge><v1>1</v1><v2>19</v2><speed>35</speed></edge>
+    <edge><v1>19</v1><v2>4</v2><speed>35</speed></edge>
+    <edge><v1>5</v1><v2>18</v2><speed>35</speed></edge>
+    <edge><v1>18</v1><v2>4</v2><speed>35</speed></edge>
+    <edge><v1>4</v1><v2>20</v2><speed>35</speed></edge>
+    <edge><v1>20</v1><v2>21</v2><speed>35</speed></edge>
+    <edge><v1>21</v1><v2>6</v2><speed>35</speed></edge>
+    <edge><v1>7</v1><v2>9</v2><speed>15</speed></edge>
+    <edge><v1>8</v1><v2>9</v2><speed>15</speed></edge>
+    <edge><v1>10</v1><v2>9</v2><speed>15</speed></edge>
+    <edge><v1>11</v1><v2>9</v2><speed>15</speed></edge>
+    <edge><v1>12</v1><v2>14</v2><speed>15</speed></edge>
+    <edge><v1>13</v1><v2>14</v2><speed>15</speed></edge>
+    <edge><v1>15</v1><v2>14</v2><speed>15</speed></edge>
+    <edge><v1>10</v1><v2>14</v2><speed>15</speed></edge>
+    <edge><v1>15</v1><v2>16</v2><speed>15</speed></edge>
+    <edge><v1>17</v1><v2>16</v2><speed>15</speed></edge>
+    <edge><v1>19</v1><v2>16</v2><speed>15</speed></edge>
+    <edge><v1>18</v1><v2>16</v2><speed>15</speed></edge>
+    <edge><v1>18</v1><v2>22</v2><speed>15</speed></edge>
+    <edge><v1>20</v1><v2>22</v2><speed>15</speed></edge>
+    <edge><v1>22</v1><v2>23</v2><speed>15</speed></edge>
+    <edge><v1>21</v1><v2>24</v2><speed>15</speed></edge>
+    <edge><v1>21</v1><v2>26</v2><speed>0.5</speed></edge>
+    <edge><v1>26</v1><v2>25</v2><speed>15</speed></edge>
+    <edge><v1>11</v1><v2>26</v2><speed>0.5</speed></edge>
+  </extension>
+  <extension name="TripGen" class="de.uni_stuttgart.informatik.canu.tripmodel.generators.ActivityBasedTripGenerator" path_algorithm="de.uni_stuttgart.informatik.canu.tripmodel.pathalgorithms.SpeedPathSelection" theta="0.3" speedWeight="2">
+    <reflect_directions>true</reflect_directions>
+    <activity id="fast">
+      <points>samples/points_fast.txt</points>
+      <minstay>50.0</minstay>
+      <maxstay>100.0</maxstay>
+    </activity>
+    <activity id="slow">
+      <points>samples/points_slow.txt</points>
+      <minstay>50.0</minstay>
+      <maxstay>100.0</maxstay>
+    </activity>
+    <transition>
+      <src>fast</src>
+      <dest>fast</dest>
+      <p>0.8</p>
+    </transition>
+    <transition>
+      <src>fast</src>
+      <dest>slow</dest>
+      <p>0.2</p>
+    </transition>
+    <transition>
+      <src>slow</src>
+      <dest>fast</dest>
+      <p>0.5</p>
+    </transition>
+    <transition>
+      <src>slow</src>
+      <dest>slow</dest>
+      <p>0.5</p>
+    </transition>
+  </extension>
+  <nodegroup n="200">
+  <extension class="polito.uomm.IDM_IM" initposgenerator="TripGen" tripgenerator="TripGen">
+		 <minspeed>50</minspeed>
+      <maxspeed>50</maxspeed>
+      <step>1</step>
+			<b>0.9</b>
+			<a>0.6</a>
+      <s0>4</s0>
+      <t>2</t>
+     <ignoreBorders>true</ignoreBorders>
+    </extension> 
+  </nodegroup>
+	<extension class="de.uni_stuttgart.informatik.canu.mobisimadd.extensions.GUI">
+    <width>640</width>
+    <height>480</height>
+    <step>1</step>
+  </extension>
+</universe>

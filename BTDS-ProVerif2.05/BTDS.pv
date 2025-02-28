@@ -1,0 +1,147 @@
+(* Channel Definition *)
+free TA_registration_net : channel [private]. 
+free RSU_registration_net : channel [private].
+free Vi_TA_registration_net : channel [private]. 
+free Vi_RSU_public_net : channel. 
+free Vi_TA_public_net : channel. 
+
+(* Public and Private Terms *)
+const T_0 : bitstring.  (*timestamp*)
+const T_1 : bitstring.  (*timestamp*)
+const T_2 : bitstring.  (*timestamp*)
+const T_3 : bitstring.  (*timestamp*)
+const T_4 : bitstring.  (*timestamp*)
+const P1 : bitstring.
+free ID_VK,ID_RSU: bitstring.
+free D_I,D_Vi,PID_I,D_Vinew,TD_Inew,D_VI,U_TA,U_Vk,S_TA,S_RSU,IDV,S_Vi,SK_RSUVi,Con: bitstring [private].
+
+
+(* Functions *)
+fun HashFunOne(bitstring) : bitstring.
+fun HashFunTwo(bitstring, bitstring) : bitstring.
+fun LEprove(bitstring,bitstring, bitstring) : bitstring.
+fun HashFunFour(bitstring, bitstring, bitstring, bitstring) : bitstring.
+fun LEverify(bitstring, bitstring, bitstring, bitstring, bitstring) : bitstring.
+
+fun Encrypt(bitstring,bitstring) : bitstring.
+fun XORFun(bitstring, bitstring) : bitstring.
+fun Concat(bitstring, bitstring) : bitstring.
+
+(* Destructors *)
+reduc forall m1 : bitstring,m2: bitstring; Decrypt(Encrypt(m1,m2),m1) = m2.
+reduc forall m3 : bitstring,m4 : bitstring; SeparateFirst(Concat(m3,m4)) = m3.
+reduc forall m3 : bitstring,m4 : bitstring; SeparateSecond(Concat(m3,m4)) = m4.
+
+
+(*Equations *)
+equation forall m9 : bitstring, m10 : bitstring; XORFun(m9, m10) = XORFun(m10, m9).
+
+(* Queries *)
+
+query attacker (S_TA).
+query attacker (S_RSU).
+query attacker (S_Vi).
+query attacker (ID_Vi).
+query attacker (D_Vi).
+
+noninterf PID_I. 
+noninterf D_I.
+
+
+query inj-event (endRSU_Vi) ==> inj-event (startVi_RSU).
+
+(*Events *)
+event startVi_RSU.
+event endRSU_Vi.
+event startBC_RSU.
+event endRSU_BC.
+
+(* TA *)
+let pTA=
+let S_TA=HashFunTwo(U_TA, ID_VK) in
+out (TA_registration_net, (U_Vk,S_TA));
+
+let IDV=HashFunTwo(U_TA, D_I) in
+let S_Vi=LEprove(U_TA,ID_VK, D_I) in
+new N1: bitstring;
+let C0=Concat(N1, T_0) in
+let PID_I=Encrypt(U_TA,C0) in
+out (Vi_TA_registration_net, (D_I,PID_I,IDV,S_Vi));
+0.
+
+(* RSU *)
+let pRSU=
+
+in (RSU_registration_net,(S_RSU:bitstring, P1:bitstring, Con: bitstring));
+
+in (Vi_TA_public_net,(TD_I:bitstring,r_i:bitstring,T_2:bitstring,T_3:bitstring,theta_ij:bitstring));
+let D_VI_1=XORFun(TD_I, HashFunTwo(Con, T_2)) in
+let D_Vi_1=LEprove(Con, D_VI_1,T_2) in
+let theta_ij_1 = LEverify(TD_I,r_i,D_Vi_1,T_2,T_3) in
+if ( theta_ij_1= theta_ij) then
+new r_j : bitstring;
+let SK_RSUVi = HashFunFour(D_Vi_1,r_i,r_j,T_4) in
+let TD_Inew=XORFun(D_VI, HashFunTwo(Con, T_4)) in
+let D_Vinew=LEprove(Con, D_VI,T_4) in
+let C2=Concat(D_Vinew,TD_Inew) in
+let O_ik=Encrypt(D_Vi, C2) in
+let eta_ij = HashFunTwo(D_Vi_1,r_j,SK_RSUVi,TD_Inew,D_Vinew,O_ik,T_4,T_4) in
+event endRSU_BC;
+out (Vi_TA_public_net, (r_j,O_ik,T_4,T_4,eta_ij));
+0.
+
+(* Vi *)
+let pVi=
+in (Vi_TA_registration_net , (PID_I:bitstring, IDV:bitstring,S_Vi:bitstring));
+
+new m_Vi : bitstring;
+let M_Vi =Encrypt(S_Vi,m_Vi) in
+let alpha_Vi = LEverify(S_Vi,PID_I,m_Vi,M_Vi,T_1) in
+out (Vi_RSU_public_net, (PID_I,M_Vi,T_1,alpha_Vi));
+event startVi_RSU;
+
+in (Vi_RSU_public_net, (TD_I:bitstring,C_ik:bitstring,T_2:bitstring,beta_CK:bitstring));
+let C1=Decrypt(S_Vi,C_ik) in
+let D_Vi_1=SeparateFirst(C1) in
+let PID_I_1=SeparateSecond(C1) in
+let beta_CK_1=LEverify(TD_I, D_Vi_1,PID_I_1,C_ik,T_2) in
+if ( beta_CK_1= beta_CK) then
+new r_i : bitstring;
+let theta_ij = LEverify(TD_I,r_i,D_Vi_1,T_2,T_3) in
+event startBC_RSU;
+
+in (Vi_TA_public_net, (r_j:bitstring,O_ik:bitstring,T_4:bitstring,T_4:bitstring,eta_ij:bitstring));
+let SK_RSUVi = HashFunFour(D_Vi_1,r_i,r_j,T_4) in
+let eta_ij = HashFunTwo(D_Vi_1,r_j,SK_RSUVi,TD_Inew,D_Vinew,O_ik,T_4,T_4) in
+0.
+
+(*BC*)
+let pBC=
+out (TA_registration_net, (ID_VK));
+
+new ID_RSU: bitstring;
+in (RSU_registration_net, (ID_RSU:bitstring));
+let S_RSU=HashFunTwo(U_Vk, ID_RSU) in
+new Con: bitstring;
+
+in (TA_registration_net , (PID_I:bitstring, S_Vi:bitstring));
+
+in(Vi_RSU_public_net, (PID_I:bitstring,M_Vi:bitstring,T_1:bitstring,alpha_Vi:bitstring));
+let m_Vi_1 =Decrypt(S_Vi,M_Vi) in
+let alpha_Vi_1 = LEverify(S_Vi,PID_I,m_Vi_1,M_Vi,T_1) in
+if ( alpha_Vi_1= alpha_Vi) then
+new D_VI : bitstring;
+new PID_I : bitstring;
+let TD_I=XORFun(D_VI, HashFunTwo(Con, T_2)) in
+let D_Vi=LEprove(Con, D_VI,T_2) in
+let C1=Concat(D_Vi,PID_I) in
+let C_ik=Encrypt(S_Vi,C1) in
+let beta_CK=LEverify(TD_I, D_Vi,PID_I,C_ik,T_2) in
+event endRSU_Vi;
+0. 
+
+
+process
+( (!pRSU) | (!pVi)| (!pTA) )
+
+

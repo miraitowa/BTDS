@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- Cars in a City Center -->
+<universe>
+  <dimx>1000.0</dimx>
+  <dimy>1000.0</dimy>
+	 <!-- Uncoment this if you wish to set a seed
+	 <seed>18</seed>-->
+	<!-- Uncoment this if you wish to get a NS-2 trace file
+	<extension class="de.uni_stuttgart.informatik.canu.mobisim.extensions.NSOutput" output="test_trace"/>-->
+  <extension class="de.uni_stuttgart.informatik.canu.mobisim.simulations.TimeSimulation" param="36000.0"/>
+  <extension class="de.uni_stuttgart.informatik.canu.spatialmodel.core.SpatialModel" min_x="0" max_x="1000" min_y="0" max_y="1000">
+	  <max_traffic_lights>6</max_traffic_lights>
+		<reflect_directions>true</reflect_directions>
+		<number_lane full="false" max="4">2</number_lane>
+	</extension>
+	<extension name="TrafficLight" class="eurecom.spatialmodel.extensions.TrafficLight" step="30000"/>
+	  <!-- For Windows systems
+	<extension class="eurecom.tigerreader.TIGERReader" source="file:///C:/Documents and Settings/haerri/Mes documents/Eurecom/Newcom/Canu/samples/TIGER/TGR11001" shapeCoord="true" center_lat="+38905050" center_long="-77016160" size_x="1000" size_y="1000">	
+  -->
+  <extension class="eurecom.tigerreader.TIGERReader" source="file:///homes/haerri/Projects/NewCom/Canu/samples/TIGER/TGR11001" shapeCoord="true" center_lat="+38905050" center_long="-77016160" size_x="1000" size_y="1000">
+	  <speed>samples/speedLimits.txt</speed>
+	</extension>	
+	<extension name="PosGen" class="de.uni_stuttgart.informatik.canu.tripmodel.generators.RandomInitialPositionGenerator"/>
+  <extension name="TripGen" class="de.uni_stuttgart.informatik.canu.tripmodel.generators.RandomTripGenerator" >
+    <reflect_directions>true</reflect_directions>
+	 <minstay>5.0</minstay> <maxstay>30.0</maxstay>
+  </extension>
+  <nodegroup n="30">
+   <!--  <extension class="de.uni_stuttgart.informatik.canu.uomm.IntelligentDriverMotion" initposgenerator="PosGen" tripgenerator="TripGen">-->
+   <extension class="polito.uomm.IDM_LC" initposgenerator="PosGen" tripgenerator="TripGen">
+		 <minspeed>8.33</minspeed>
+      <maxspeed>13.89</maxspeed>
+      <step>0.5</step>
+			<b>0.5</b>
+    </extension> 
+  </nodegroup>
+	<extension class="de.uni_stuttgart.informatik.canu.mobisimadd.extensions.GUI">
+    <width>640</width>
+    <height>480</height>
+    <step>1</step>
+  </extension>
+<!--
+  <extension class="de.uni_stuttgart.informatik.canu.spatialmodel.extensions.DumpSpatialModel" output="DC.fig"/>
+-->
+</universe>

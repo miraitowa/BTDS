@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+VanetMobiSim building script
+
+For the purpose of easier reading the script
+is divided into following sections:
+
+  - patching
+  - initialization
+  - compilation
+  - jar
+  - javadoc
+  - cleanup
+-->
+
+<project name="VanetMobiSim" default="clean" basedir=".">
+  <!-- set global properties for this build -->
+  <property name="root" value="."/>
+  <property name="src" value="src"/>
+  <property name="build" value="classes"/>
+  <property name="jars"  value="jar"/>
+  <property name="doc"  value="doc"/>
+	<property name="samples"  value="samples"/>
+	<property name="zip"  value="zip"/>
+	
+	
+	<target name="patch">
+	<!-- patching CanuMobiSim with VanetMobiSim source and sample files. -->
+	 <mkdir dir="${root}/${src}"/>
+	 <mkdir dir="${root}/${samples}"/>
+   <unjar src="${root}/VanetMobiSim-src.jar" dest="${root}/${src}"/>
+	 <unjar src="${root}/VanetMobiSim-samples.jar" dest="${root}/${samples}"/>
+	 <delete file="${root}/VanetMobiSim-src.jar"/>
+	 <delete file="${root}/VanetMobiSim-samples.jar"/>
+  </target> 
+	
+  <target name="init">
+		<!-- initialization -->
+    <tstamp/>
+		<delete file="${root}/${jars}/VanetMobiSim.jar"/> 
+    <mkdir dir="${root}/${build}"/>
+  </target>
+	
+  <target name="compile" depends="init">
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac classpath="${root}/${jars}/geotransform.jar;${root}/${jars}/xerces.jar;${root}/${jars}/sax2r2.jar" srcdir="${root}/${src}" destdir="${root}/${build}" debug="off"/>
+  </target>
+
+  <target name="jars" depends="compile">
+	 <!-- Creates the jar file containing the complete simulator binary code -->
+    <jar manifest="${root}/${src}/CanuMobiSim/VanetMobiSim.mf" jarfile="${root}/${jars}/VanetMobiSim.jar" basedir="${root}/${build}"/>
+  </target> 
+		 
+  <target name="javadocs" depends="jars">
+    <mkdir dir="${root}/${doc}/api"/>  
+    <!-- Create the Java Doc for  VanetMobiSim -->
+	  <javadoc destdir="${root}/${doc}/api" packageList="${root}/mypackages.lst" verbose="false" author="true">
+		  <sourcepath path="${root}/${src}/AWMLReader"/>
+			<sourcepath path="${root}/${src}/CanuMobiSim"/>
+			<sourcepath path="${root}/${src}/CanuMobiSimAdd"/>
+			<sourcepath path="${root}/${src}/GraphSupport"/>
+			<sourcepath path="${root}/${src}/UserGraph"/>
+			<sourcepath path="${root}/${src}/GDFReader"/>
+			<sourcepath path="${root}/${src}/GDFWriter"/>
+			<sourcepath path="${root}/${src}/SpaceGraph"/>
+			<sourcepath path="${root}/${src}/TIGERReader"/>
+			<sourcepath path="${root}/${src}/SpatialModel"/>
+			<sourcepath path="${root}/${src}/TripModel"/>
+			<sourcepath path="${root}/${src}/TripModelImpl"/>
+			<sourcepath path="${root}/${src}/UOMM"/>
+		</javadoc>
+  </target> 
+  
+  <target name="clean" depends="javadocs">
+	   <!-- Removing the .class files as they are contained in the .jar file -->
+		  <delete dir="${root}/${build}"/>
+  </target> 
+  
+  <target name="all" depends="clean">
+    <!-- Build the whole project -->
+  </target> 
+	
+</project>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!-- Cars in a City Center using the SpaceGraph. -->
+<universe>
+  <dimx>2000.0</dimx>
+  <dimy>2000.0</dimy>
+	<!-- <seed>13</seed> -->
+  <!--<extension class="de.uni_stuttgart.informatik.canu.mobisim.extensions.NSOutput" output="test_trace"/>-->
+  <extension class="de.uni_stuttgart.informatik.canu.mobisim.simulations.TimeSimulation" param="100.0"/>
+  <extension name="SpatialModel" class="de.uni_stuttgart.informatik.canu.spatialmodel.core.SpatialModel" min_x="0" max_x="2000" min_y="0" max_y="2000">
+		<max_traffic_lights>3</max_traffic_lights>
+		<reflect_directions>false</reflect_directions>
+		<number_lane full="false" max="2" dir="false">2</number_lane>
+	</extension>
+  <extension class="eurecom.spacegraph.SpaceGraph"  cluster="true">
+	  <clusters density="0.000004">
+		  <cluster id="downtown">
+			 <!-- <density>0.0025</density> -->
+			 <density>0.0002</density> 
+				<ratio>0.1</ratio>
+				<speed>9</speed>
+			</cluster>
+			<cluster id="residential">
+			<!--  <density>0.0009</density>-->
+			<density>0.00005</density> 
+				<ratio>0.4</ratio>
+				<speed>5</speed>
+			</cluster>
+			<cluster id="suburban">
+			 <!-- <density>0.0001</density>-->
+			 <density>0.00001</density>
+				<ratio>0.5</ratio>
+				<speed>15</speed>
+			</cluster> 
+		</clusters>
+	</extension>
+  <extension name="PosGen" class="de.uni_stuttgart.informatik.canu.tripmodel.generators.RandomInitialPositionGenerator"/>
+  <extension name="TripGen" class="de.uni_stuttgart.informatik.canu.tripmodel.generators.RandomTripGenerator" >
+  	 <reflect_directions>false</reflect_directions>
+		 <minstay>0.0</minstay> <maxstay>0.0</maxstay>
+	</extension>
+  <nodegroup n="30">
+    <extension class="de.uni_stuttgart.informatik.canu.uomm.IntelligentDriverMotion" initposgenerator="PosGen" tripgenerator="TripGen">
+      <minspeed>8.33</minspeed>
+      <maxspeed>13.89</maxspeed>
+      <step>0.5</step>
+    </extension>
+  </nodegroup>
+	<extension class="de.uni_stuttgart.informatik.canu.mobisimadd.extensions.GUI">
+	  <width>640</width>
+		<height>480</height>
+		<step>1</step>
+	</extension> 
+	<!--
+	<extension class="de.uni_stuttgart.informatik.canu.spatialmodel.extensions.DumpSpatialModel" output="dumped_graph.fig"/>
+	-->
+</universe>

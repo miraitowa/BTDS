@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!-- Scenario File for Generating a Random GDF file. -->
+<universe>
+  <dimx>1000.0</dimx>
+  <dimy>1000.0</dimy>
+  <!-- Uncoment this if you wish to set a seed
+	<seed>18</seed>-->
+ <extension class="de.uni_stuttgart.informatik.canu.mobisim.simulations.TimeSimulation" param="1.0"/>
+ <extension name="NewSpatialModel" class="de.uni_stuttgart.informatik.canu.spatialmodel.core.SpatialModel" min_x="0" max_x="1000" min_y="0" max_y="1000">
+	  <max_traffic_lights>6</max_traffic_lights>
+		<reflect_directions>true</reflect_directions>
+		<number_lane full="false" max="4" dir="true">2</number_lane>
+	</extension> 
+ <extension class="eurecom.spacegraph.SpaceGraph" spatial_model="NewSpatialModel" cluster="true">
+    <clusters density="0.000004">
+		  <cluster id="downtown">
+			 <density>0.0002</density> 
+				<ratio>0.1</ratio>
+				<speed>9</speed>
+			</cluster>
+			<cluster id="residential">
+			<density>0.00005</density> 
+				<ratio>0.4</ratio>
+				<speed>5</speed>
+			</cluster>
+			<cluster id="suburban">
+			 <density>0.00001</density>
+				<ratio>0.5</ratio>
+				<speed>15</speed>
+			</cluster> 
+		</clusters>
+ </extension> 
+ <extension class="eurecom.gdfwriter.GDFWriter" spatial_model="NewSpatialModel" output="dumped_GDF.gdf"/>
+ 
+ <!-- Uncoment this line if you wish to use a GUI to display the Generated GDF file.
+ <extension class="de.uni_stuttgart.informatik.canu.mobisimadd.extensions.GUI" spatial_model="NewSpatialModel">
+    <width>640</width>
+    <height>480</height>
+    <step>1</step>
+  </extension>-->
+<!-- Uncoment this line if you wish to obtain a .fig file of the generated GDF file.
+  <extension class="de.uni_stuttgart.informatik.canu.spatialmodel.extensions.DumpSpatialModel" spatial_model="NewSpatialModel" output="dumped_graph.fig"/>
+-->
+</universe>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- Cars in a City Center using the SpaceGraph and MOBIL. -->
+<universe>
+  <dimx>1000.0</dimx>
+  <dimy>1000.0</dimy>
+  <!-- <seed>18</seed>-->
+  <!-- <extension class="de.uni_stuttgart.informatik.canu.mobisim.extensions.NSOutput" output="ns_trace.txt"/>-->
+  <extension class="de.uni_stuttgart.informatik.canu.mobisim.simulations.TimeSimulation" param="3600.0"/>
+	<extension name="SpatialModel" class="de.uni_stuttgart.informatik.canu.spatialmodel.core.SpatialModel" min_x="0" max_x="1000" min_y="0" max_y="1000">
+	   <max_traffic_lights>6</max_traffic_lights>
+		 	<reflect_directions>true</reflect_directions>
+		<number_lane full="false" max="4" dir="true">2</number_lane>
+	</extension> 	
+	<extension name="TrafficLight" class="eurecom.spatialmodel.extensions.TrafficLight" step="10000"/>
+ <extension class="eurecom.spacegraph.SpaceGraph" cluster="true">
+		<clusters density="0.000001">
+      <cluster id="suburban">
+        <density>0.000005</density>
+        <ratio>1.0</ratio>
+				<speed>13</speed>
+      </cluster>
+		</clusters>
+ </extension> 
+  <extension name="PosGen" class="de.uni_stuttgart.informatik.canu.tripmodel.generators.RandomInitialPositionGenerator"/>
+  <extension name="TripGen" class="de.uni_stuttgart.informatik.canu.tripmodel.generators.RandomTripGenerator" >
+    <reflect_directions>true</reflect_directions>
+	  <minstay>5.0</minstay> <maxstay>30.0</maxstay>
+  </extension>
+  <nodegroup n="30">
+  <extension class="polito.uomm.IDM_LC" initposgenerator="PosGen" tripgenerator="TripGen">
+		 <minspeed>3.33</minspeed>
+      <maxspeed>13.89</maxspeed>
+      <step>0.1</step>
+			<b>0.5</b>
+    </extension>
+  </nodegroup>
+  <extension class="de.uni_stuttgart.informatik.canu.mobisimadd.extensions.GUI">
+    <width>640</width>
+    <height>480</height>
+    <step>1</step>
+  </extension>
+<!--
+  <extension class="de.uni_stuttgart.informatik.canu.spatialmodel.extensions.DumpSpatialModel" output="dumped_graph_double_mult_all.fig"/>
+-->
+</universe>

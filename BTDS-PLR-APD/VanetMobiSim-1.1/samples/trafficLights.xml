@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- Cars in a City Center using the SpaceGraph Traffic Light. -->
+<universe>
+  <dimx>1000.0</dimx>
+  <dimy>1000.0</dimy>
+  <!-- <seed>18</seed>-->
+  <!-- <extension class="de.uni_stuttgart.informatik.canu.mobisim.extensions.NSOutput" output="ns_trace.txt"/>-->
+  <extension class="de.uni_stuttgart.informatik.canu.mobisim.simulations.TimeSimulation" param="3600.0"/>
+	<extension name="NewSpatialModel" class="de.uni_stuttgart.informatik.canu.spatialmodel.core.SpatialModel" traffic_light="NewTrafficLight" min_x="0" max_x="1000" min_y="0" max_y="1000">
+	  <max_traffic_lights>6</max_traffic_lights>
+	  <reflect_directions>true</reflect_directions>
+		<number_lane full="false" max="4" dir="true">2</number_lane>
+	</extension> 	
+	<extension name="NewTrafficLight" class="eurecom.spatialmodel.extensions.TrafficLight" spatial_model="NewSpatialModel" step="10000"/>
+ <extension class="eurecom.spacegraph.SpaceGraph" spatial_model="NewSpatialModel" traffic_light ="NewTrafficLight" cluster="true">
+    <clusters density="0.000004">
+		  <cluster id="downtown">
+			 <density>0.0002</density> 
+				<ratio>0.1</ratio>
+			</cluster>
+			<cluster id="residential">
+			<density>0.00005</density> 
+				<ratio>0.4</ratio>
+			</cluster>
+			<cluster id="suburban">
+			 <density>0.00001</density>
+				<ratio>0.5</ratio>
+			</cluster> 
+		</clusters>
+ </extension> 
+  <extension name="PosGen" class="de.uni_stuttgart.informatik.canu.tripmodel.generators.RandomInitialPositionGenerator" spatial_model="NewSpatialModel"/>
+  <extension name="TripGen" class="de.uni_stuttgart.informatik.canu.tripmodel.generators.RandomTripGenerator" spatial_model="NewSpatialModel">
+    <reflect_directions>true</reflect_directions>
+	  <minstay>5.0</minstay> <maxstay>30.0</maxstay>
+  </extension>
+  <nodegroup n="30">
+    <extension class="polito.uomm.IDM_IM" spatial_model="NewSpatialModel" initposgenerator="PosGen" tripgenerator="TripGen">
+      <minspeed>8.33</minspeed>
+      <maxspeed>13.89</maxspeed>
+      <step>0.1</step>
+			<b>0.5</b>
+    </extension>
+  </nodegroup>
+  <extension class="de.uni_stuttgart.informatik.canu.mobisimadd.extensions.GUI" spatial_model="NewSpatialModel">
+    <width>640</width>
+    <height>480</height>
+    <step>1</step>
+  </extension>
+<!--
+  <extension class="de.uni_stuttgart.informatik.canu.spatialmodel.extensions.DumpSpatialModel" spatial_model="NewSpatialModel" output="dumped_graph.fig"/>
+-->
+</universe>

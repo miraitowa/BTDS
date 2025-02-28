@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/CanuMobiSim"/>
+	<classpathentry exported="true" kind="src" path="/SpatialModel"/>
+	<classpathentry kind="var" path="xercesImpl"/>
+	<classpathentry kind="var" path="xmlParserAPIs"/>
+	<classpathentry exported="true" kind="src" path="/GraphSupport"/>
+	<classpathentry kind="src" path="/TripModel"/>
+	<classpathentry kind="src" path="/GDFReader"/>
+	<classpathentry kind="src" path="/AWMLReader"/>
+	<classpathentry kind="src" path="/UOMM"/>
+	<classpathentry kind="src" path="/TripModelImpl"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
