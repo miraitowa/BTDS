@@ -1,9 +1,8 @@
-![image](https://github.com/user-attachments/assets/a81f0c6e-af87-4e0e-b964-d14b79017d7b)
 # Our Scheme
 
-Source codes of proverif, NS, VanetMobiSim in our proposed scheme.
+Source codes of ProVerif, NS, VanetMobiSim in our proposed scheme.
 
-## 1. Proverif
+## 1. ProVerif
 
 ### 1.1 Dependency
 
@@ -17,7 +16,7 @@ Source codes of proverif, NS, VanetMobiSim in our proposed scheme.
 order: proverif BTDS.pv
 
 output: 
-<img src=".\BTDS-ProVerif2.05\result.png" width = 60%>
+<img src=".\BTDS-ProVerif2.05\result.png" width = 40%>
 
 ## 2. Simulate the APD + PLR 
 
