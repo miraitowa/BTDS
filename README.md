@@ -1,6 +1,6 @@
-# Our Scheme
+# Blockchain-based Efficient and Traceable Data Sharing Scheme for Vehicular Networks
 
-Source codes of ProVerif, NS, VanetMobiSim in our proposed scheme.
+Source codes of proverif, NS, VanetMobiSim in our proposed scheme (i.e., Blockchain-based Efficient and Traceable Data Sharing Scheme for Vehicular Networks).
 
 ## 1. ProVerif
 
